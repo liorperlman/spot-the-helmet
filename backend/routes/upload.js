@@ -6,9 +6,17 @@ const { callPythonProcessor } = require('../services/callPython');
 const router = express.Router();
 
 // Configure multer for saving files to /shared/uploads
-const upload = multer({
-  dest: path.join(__dirname, '../../shared/uploads'),
+const storage = multer.diskStorage({
+  destination: '/shared/uploads',
+  filename: function (req, file, cb) {
+    // Keep original filename and add -result before extension
+    const ext = path.extname(file.originalname);
+    const nameWithoutExt = path.basename(file.originalname, ext);
+    cb(null, nameWithoutExt + '-result' + ext);
+  }
 });
+
+const upload = multer({ storage: storage });
 
 // @route   POST /api/upload
 // @desc    Upload image and process it using Python
