@@ -28,7 +28,11 @@ const ImageUploader = ({ onUploadComplete }) => {
       const res = await axios.post('http://localhost:5000/api/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      onUploadComplete(previewUrl, res.data);
+      // Get file extension from original filename
+      const ext = image.name.split('.').pop();
+      const nameWithoutExt = image.name.slice(0, image.name.lastIndexOf('.'));
+      const annotatedImageUrl = `http://localhost:5000/detections/${nameWithoutExt}-result.${ext}`;
+      onUploadComplete(annotatedImageUrl, res.data);
     } catch (err) {
       setError('Upload failed. Try again.');
       console.error(err);

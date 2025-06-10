@@ -7,20 +7,24 @@ const ResultViewer = ({ previewUrl, results }) => {
     <div>
       <h3>Detection Results</h3>
       <img src={previewUrl} alt="Processed" style={{ width: '300px' }} />
-      <ul>
-        {results.people?.map((p, idx) => (
-          <li key={idx}>
-            Person #{idx + 1} – Confidence: {p.confidence}
-          </li>
-        ))}
-      </ul>
-      <ul>
-        {results.helmets?.map((h, idx) => (
-          <li key={idx}>
-            Helmet #{idx + 1} – Confidence: {h.confidence}
-          </li>
-        ))}
-      </ul>
+      <div>
+        <h4>Summary</h4>
+        <p>Total Detections: {results.total_detections}</p>
+        <p>Helmets Detected: {results.helmet_count}</p>
+        <p>No Helmets Detected: {results.no_helmet_count}</p>
+      </div>
+      {results.detections.length > 0 && (
+        <div>
+          <h4>Detailed Detections</h4>
+          <ul>
+            {results.detections.map((detection, idx) => (
+              <li key={idx}>
+                {detection.label} - Confidence: {detection.confidence}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
