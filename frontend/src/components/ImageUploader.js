@@ -28,13 +28,12 @@ const ImageUploader = ({ onUploadComplete }) => {
       const res = await axios.post('http://localhost:5000/api/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      // Get file extension from original filename
       const ext = image.name.split('.').pop();
       const nameWithoutExt = image.name.slice(0, image.name.lastIndexOf('.'));
       const annotatedImageUrl = `http://localhost:5000/detections/${nameWithoutExt}-result.${ext}`;
       onUploadComplete(annotatedImageUrl, res.data);
     } catch (err) {
-      setError('Upload failed. Try again.');
+      setError('Upload failed. Please try again.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -42,13 +41,95 @@ const ImageUploader = ({ onUploadComplete }) => {
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      {previewUrl && <img src={previewUrl} alt="Preview" style={{ width: '300px' }} />}
-      <button onClick={handleUpload} disabled={!image || loading}>
-        {loading ? 'Uploading...' : 'Upload'}
-      </button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div style={{
+      padding: '2rem',
+      backgroundColor: '#f8f9fa',
+      borderRadius: '8px',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }}>
+      <h2 style={{
+        marginBottom: '1.5rem',
+        color: '#2c3e50',
+        fontSize: '1.5rem'
+      }}>Upload Image</h2>
+      
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem'
+      }}>
+        <div style={{
+          border: '2px dashed #ccc',
+          borderRadius: '4px',
+          padding: '2rem',
+          textAlign: 'center',
+          cursor: 'pointer',
+          backgroundColor: '#fff',
+          transition: 'border-color 0.3s ease'
+        }}>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+            id="file-input"
+          />
+          <label
+            htmlFor="file-input"
+            style={{
+              cursor: 'pointer',
+              display: 'block',
+              color: '#666'
+            }}
+          >
+            {image ? 'Change Image' : 'Click to select an image'}
+          </label>
+        </div>
+
+        {previewUrl && (
+          <div style={{
+            textAlign: 'center'
+          }}>
+            <img
+              src={previewUrl}
+              alt="Preview"
+              style={{
+                maxWidth: '100%',
+                maxHeight: '300px',
+                borderRadius: '4px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+              }}
+            />
+          </div>
+        )}
+
+        <button
+          onClick={handleUpload}
+          disabled={!image || loading}
+          style={{
+            padding: '0.75rem 1.5rem',
+            backgroundColor: image ? '#3498db' : '#ccc',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: image ? 'pointer' : 'not-allowed',
+            fontSize: '1rem',
+            transition: 'background-color 0.3s ease'
+          }}
+        >
+          {loading ? 'Processing...' : 'Analyze Image'}
+        </button>
+
+        {error && (
+          <p style={{
+            color: '#e74c3c',
+            margin: '0.5rem 0',
+            fontSize: '0.9rem'
+          }}>
+            {error}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

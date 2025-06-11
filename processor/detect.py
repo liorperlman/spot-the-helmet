@@ -26,10 +26,6 @@ def detect_helmets(image_path):
     # Log available classes
     logger.info(f"Model classes: {model.names}")
 
-    # Define classes we're interested in (helmet-related)
-    # helmet_classes = [2, 6]  # 2: 'helmet', 6: 'no_helmet'
-    # logger.info(f"Focusing on helmet detection (classes: {[model.names[i] for i in helmet_classes]})")
-
     # set model parameters
     model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
@@ -43,9 +39,8 @@ def detect_helmets(image_path):
     # Run prediction
     results = model.predict(
         source=image_path,
-        save=False,  # We'll save manually after rendering
-        imgsz=640,  # Use default size as per repository
-        # classes=helmet_classes  # Only detect helmet-related classes
+        save=False,  # Save manually after rendering
+        imgsz=640,  # Default size
     )
 
     # Get the path for the annotated image
