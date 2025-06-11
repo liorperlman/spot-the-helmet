@@ -50,21 +50,24 @@ docker-compose up --build
 ```
 spot-the-helmet/
 ├── frontend/               # React frontend application
-│   ├── src/
-│   │   ├── components/    # React components
-│   │   └── App.js         # Main application component
-│   └── Dockerfile.frontend
+│   └── src/
+│       ├── components/    # React components
+│       │   ├── ImageUploader.js
+│       │   └── ResultViewer.js
+│       └── App.js         # Main application component
 ├── backend/               # Node.js backend service
 │   ├── routes/           # API routes
-│   ├── services/         # Business logic
-│   └── Dockerfile.backend
+│   └── services/         # Business logic
 ├── processor/            # Python image processing service
 │   ├── app.py           # Flask application
-│   ├── detect.py        # YOLO detection logic
-│   └── Dockerfile.processor
+│   └── detect.py        # YOLO detection logic
 ├── shared/              # Shared volume for image storage
-│   └── uploads/         # Uploaded and processed images
-└── docker-compose.yml   # Docker Compose configuration
+│   └── uploads/         # Uploaded images
+│       └── detections/  # Processed images
+├── docker-compose.yml   # Docker Compose configuration
+├── Dockerfile.backend
+├── Dockerfile.frontend
+└── Dockerfile.processor
 ```
 
 ## API Endpoints
@@ -146,10 +149,6 @@ docker-compose up --build
    - Clear loading states
    - Informative error messages
    - Visual confirmation of successful operations
-
-### Testing Strategy
-- Unit tests for core functionality
-- Integration tests for API endpoints
 
 ## Troubleshooting
 

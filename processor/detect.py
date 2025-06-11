@@ -27,7 +27,7 @@ def detect_helmets(image_path):
     logger.info(f"Model classes: {model.names}")
 
     # set model parameters
-    model.overrides['conf'] = 0.25  # NMS confidence threshold
+    model.overrides['conf'] = 0.15  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
     model.overrides['max_det'] = 1000  # maximum number of detections per image
@@ -45,7 +45,8 @@ def detect_helmets(image_path):
 
     # Get the path for the annotated image
     base_name = os.path.basename(image_path)
-    annotated_image_path = os.path.join(detections_dir, base_name)
+    name_without_ext, ext = os.path.splitext(base_name)
+    annotated_image_path = os.path.join(detections_dir, f"{name_without_ext}-result{ext}")
 
     # Render results with bounding boxes
     render = render_result(model=model, image=image_path, result=results[0])

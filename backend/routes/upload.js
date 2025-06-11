@@ -9,10 +9,8 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination: '/shared/uploads',
   filename: function (req, file, cb) {
-    // Keep original filename and add -result before extension
-    const ext = path.extname(file.originalname);
-    const nameWithoutExt = path.basename(file.originalname, ext);
-    cb(null, nameWithoutExt + '-result' + ext);
+    // Keep original filename
+    cb(null, file.originalname);
   }
 });
 

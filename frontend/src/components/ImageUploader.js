@@ -6,6 +6,7 @@ const ImageUploader = ({ onUploadComplete }) => {
   const [previewUrl, setPreviewUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -13,6 +14,25 @@ const ImageUploader = ({ onUploadComplete }) => {
       setImage(file);
       setPreviewUrl(URL.createObjectURL(file));
       setError('');
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      handleFileChange({ target: { files: [file] } });
     }
   };
 
@@ -58,15 +78,20 @@ const ImageUploader = ({ onUploadComplete }) => {
         flexDirection: 'column',
         gap: '1rem'
       }}>
-        <div style={{
-          border: '2px dashed #ccc',
-          borderRadius: '4px',
-          padding: '2rem',
-          textAlign: 'center',
-          cursor: 'pointer',
-          backgroundColor: '#fff',
-          transition: 'border-color 0.3s ease'
-        }}>
+        <div
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          style={{
+            border: `2px dashed ${isDragging ? '#3498db' : '#ccc'}`,
+            borderRadius: '4px',
+            padding: '2rem',
+            textAlign: 'center',
+            cursor: 'pointer',
+            backgroundColor: '#fff',
+            transition: 'border-color 0.3s ease'
+          }}
+        >
           <input
             type="file"
             accept="image/*"
@@ -82,7 +107,7 @@ const ImageUploader = ({ onUploadComplete }) => {
               color: '#666'
             }}
           >
-            {image ? 'Change Image' : 'Click to select an image'}
+            {image ? 'Change Image' : 'Drag or Click to select an image'}
           </label>
         </div>
 
