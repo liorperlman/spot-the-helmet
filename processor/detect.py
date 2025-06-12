@@ -27,7 +27,7 @@ def detect_helmets(image_path):
     logger.info(f"Model classes: {model.names}")
 
     # set model parameters
-    model.overrides['conf'] = 0.15  # NMS confidence threshold
+    model.overrides['conf'] = 0.25  # NMS confidence threshold
     model.overrides['iou'] = 0.45  # NMS IoU threshold
     model.overrides['agnostic_nms'] = False  # NMS class-agnostic
     model.overrides['max_det'] = 1000  # maximum number of detections per image
@@ -88,7 +88,7 @@ def detect_helmets(image_path):
         'total_detections': len(detections),
         'helmet_count': helmet_count,
         'no_helmet_count': no_helmet_count,
-        'model_classes': model.names  # Include available classes in response
+        'model_classes': model.names
     }
 
     return response
