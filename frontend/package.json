@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -17,7 +14,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:unit": "react-scripts test --testPathIgnorePatterns=node_modules --testPathIgnorePatterns=integration",
+    "test:integration": "react-scripts test integration"
   },
   "eslintConfig": {
     "extends": [
@@ -37,5 +35,15 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://backend:5000"
+  "proxy": "http://backend:5000",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
+    ]
+  }
 }
