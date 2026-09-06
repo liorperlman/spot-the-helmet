@@ -107,7 +107,7 @@ const ImageUploader = ({ onUploadComplete }) => {
               color: '#666'
             }}
           >
-            {image ? 'Change Image' : 'Drag or Click to select an image'}
+            {image ? 'Change Image' : 'Drag and drop an image here, or click to select'}
           </label>
         </div>
 
