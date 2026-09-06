@@ -2,6 +2,8 @@
 
 A real-time helmet detection application that uses computer vision to identify whether people are wearing hard hats in images. Built with React, Node.js, and YOLOv8.
 
+![Detection results screenshot](docs/demo-screenshot.jpg)
+
 ## Features
 
 - Upload images for helmet detection
@@ -135,8 +137,8 @@ docker-compose up --build
 
 ### Architecture
 - **Frontend**: React-based SPA for fast, responsive user experience
-- **Backend**: Python Flask API for efficient image processing
-- **Database**: SQLite for simple storage (can be upgraded to PostgreSQL for production)
+- **Backend**: Node.js/Express handles uploads and routing; a separate
+  Python/Flask microservice runs the YOLOv8 image processing
 
 ### UI/UX Principles
 1. **Minimalist Design**
