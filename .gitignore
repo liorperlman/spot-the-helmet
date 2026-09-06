@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# Python
+processor/__pycache__/
+processor/**/__pycache__/
+*.pyc
+processor/venv/
+processor/.venv/
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# AI-assistant tooling (local only)
+CLAUDE.md
+.claude/
+.cursor/
+.cursorrules
+SYSTEM_OVERVIEW.md
