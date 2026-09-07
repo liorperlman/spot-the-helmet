@@ -2,7 +2,11 @@
 
 A real-time helmet detection application that uses computer vision to identify whether people are wearing hard hats in images. Built with React, Node.js, and YOLOv8.
 
-![Detection results screenshot](docs/demo-screenshot.jpg)
+| With helmets | With helmets (2) | No helmet |
+|---|---|---|
+| ![Detection result with helmets](docs/demo-with-helmets-1.jpg) | ![Detection result with helmets](docs/demo-with-helmets-2.jpg) | ![Detection result flagging a missing helmet](docs/demo-no-helmet.jpg) |
+
+![Detailed detection breakdown with confidence scores](docs/demo-with-helmets-1-detections.jpg)
 
 ## Features
 
