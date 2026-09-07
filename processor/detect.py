@@ -78,7 +78,7 @@ def detect_helmets(image_path):
             # Count helmet vs no_helmet
             if label == 'Hardhat':
                 helmet_count += 1
-            elif label == 'NO-Hardhate':
+            elif label == 'NO-Hardhat':
                 no_helmet_count += 1
 
     # Prepare response
